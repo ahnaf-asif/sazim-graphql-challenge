@@ -1,0 +1,1 @@
+# sazim-graphql-challenge
