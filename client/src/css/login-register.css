@@ -1,0 +1,9 @@
+.login{
+    width: min(100%, 350px);
+}
+.register{
+    width: min(100%, 500px);
+}
+.input-pair{
+    width: 48%;
+}

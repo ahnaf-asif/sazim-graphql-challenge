@@ -1,0 +1,29 @@
+.delete-product-icon{
+    position: absolute;
+    z-index: 10;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+.edit-product-icon{
+    position: absolute;
+    z-index: 10;
+    right: 30px;
+    top: 5px;
+    cursor: pointer;
+}.edit-product-icon:hover{
+    color: darkblue !important;
+ }
+.delete-product-icon:hover{
+    color: darkred !important;
+}
+
+.products{
+    width: min(100%, 600px);
+}
+.product-view{
+    width: min(100%, 650px);
+}
+.edit-delete-section{
+    position: relative;
+}
