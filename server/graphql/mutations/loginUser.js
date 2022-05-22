@@ -12,8 +12,8 @@ const loginUser = {
             type: new GraphQLNonNull(GraphQLString)
         }
     },
-    resolve (root, args) {
-        return Db.models.user.findOne({ where: args });
+    async resolve (root, args) {
+        return await Db.models.user.findOne({ where: args });
     }
 }
 
