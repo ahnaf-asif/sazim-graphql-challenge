@@ -14,8 +14,8 @@ const registerUser = {
         phone: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)}
     },
-    resolve (source, args) {
-        return Db.models.user.create({
+    async resolve (source, args) {
+        return await Db.models.user.create({
             firstName: args.firstName,
             lastName: args.lastName,
             address: args.address,

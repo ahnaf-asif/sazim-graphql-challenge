@@ -1,14 +1,13 @@
-import ProductType from "../types/ProductType.js";
+import productType from "../types/ProductType.js";
 import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from "graphql";
 import Db from "../../db/db.js";
 
-const addProduct = {
-    type: ProductType,
-    description: 'This mutation adds a product (which is created by a user)',
 
-    // defining the arguments that can be passed through this mutation
+const updateProduct = {
+    type: productType,
+    description: 'This mutation takes a product as argument and updates it',
     args: {
-        userId: {
+        productId: {
             type: new GraphQLNonNull(GraphQLInt)
         },
         title: {
@@ -30,13 +29,10 @@ const addProduct = {
             type: new GraphQLNonNull(new GraphQLList(GraphQLInt)) // list of category-ids that are associated with the post
         }
     },
-    async resolve (source, args) {
-
-        // finding the user who created the product
-        const user = await Db.models.user.findByPk(args.userId);
-
-        // creating the product
-        const product = await user.createProduct({
+    async resolve(start, args){
+        const product = await Db.models.product.findByPk(args.productId);
+        // await product.removeCategories([1,2,3,4,5,6]);
+        await product.update({
             title: args.title,
             description: args.description,
             price: args.price,
@@ -44,7 +40,11 @@ const addProduct = {
             rentPaymentPeriod: args.rentPaymentPeriod,
         });
 
-        // attaching the categories from the args.categories list one by one.
+        // removing the previous categories
+        const prevCategories = await product.getCategories({attributes: ['id']});
+        await product.removeCategories(prevCategories);
+
+        // adding new categories
         for (const catId of args.categories) {
             const categoryFromDb = await Db.models.category.findByPk(catId);
             // adding productId and categoryId pair in CategoryProduct table (many to many relationship)
@@ -52,6 +52,6 @@ const addProduct = {
         }
         return await Db.models.product.findByPk(product.id);
     }
-}
+};
 
-export default addProduct;
+export default updateProduct;
