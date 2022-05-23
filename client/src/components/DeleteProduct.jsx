@@ -6,6 +6,7 @@ import '../css/product.css';
 import {useMutation} from "@apollo/client";
 import DELETE_PRODUCT from "../graphql/mutations/deleteProduct";
 import {useNavigate} from "react-router-dom";
+import ALL_PRODUCTS from "../graphql/queries/allProducts";
 
 export default function DeleteProduct(props){
 
@@ -22,13 +23,23 @@ export default function DeleteProduct(props){
     let navigateTo = useNavigate();
 
     async function handleDeleteProduct() {
-        // graphql mutation
         try{
             const resp = await deleteProduct({
                 variables: {
                     productId: parseInt(props.productId)
+                },
+                update(cache){
+                    const {allProducts} = cache.readQuery({
+                        query: ALL_PRODUCTS
+                    });
+                    cache.writeQuery({
+                        query: ALL_PRODUCTS,
+                        data: {
+                            allProducts: allProducts.filter(product => product.id !== parseInt(props.productId))
+                        }
+                    });
                 }
-            })
+            });
             navigateTo('/sack');
         }catch(e){
             console.log(e);

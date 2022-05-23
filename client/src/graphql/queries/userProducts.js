@@ -1,8 +1,8 @@
 import {gql} from "@apollo/client";
 
-const SINGLE_PRODUCT = gql`
-    query singleProduct( $productId: Int! ){
-        singleProduct( productId: $productId ){ 
+const USER_PRODUCTS = gql`
+    query userProducts( $userId: Int! ){
+        userProducts( userId: $userId ){ 
             id
             title
             description
@@ -22,4 +22,4 @@ const SINGLE_PRODUCT = gql`
 `;
 
 
-export default SINGLE_PRODUCT;
+export default USER_PRODUCTS;

@@ -3,7 +3,9 @@ import React,{useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
 import PropTypes from 'prop-types';
-import {Box, Tab, Tabs, Typography} from "@mui/material";
+import {Box, Tab, Tabs} from "@mui/material";
+
+import MyProducts from "./MyProducts";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -18,7 +20,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
+                    {children}
                 </Box>
             )}
         </div>
@@ -70,7 +72,7 @@ export default function Sack(){
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    My Products
+                    <MyProducts userId={auth.id} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     Bought

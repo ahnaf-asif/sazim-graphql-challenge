@@ -1,23 +1,16 @@
-import ProductPreview from './ProductPreview';
-import '../css/product.css';
-
 import {useQuery} from "@apollo/client";
-import ALL_PRODUCTS from '../graphql/queries/allProducts';
-import {useEffect} from "react";
-import {useUpdateAuth} from "../AuthContext";
+import ALL_PRODUCTS from "../graphql/queries/allProducts";
+import USER_PRODUCTS from "../graphql/queries/userProducts";
 import {CircularProgress} from "@mui/material";
 import * as React from "react";
+import ProductPreview from "./ProductPreview";
 
-
-export default function Home(){
-    // console.log(apolloClient.cache.data);
-    const {error, loading, data} = useQuery(ALL_PRODUCTS);
-
-    const updateAuth = useUpdateAuth();
-    useEffect(()=>{
-        updateAuth();
-    }, []);
-
+export default function MyProducts(props){
+    const {error, loading, data} = useQuery(USER_PRODUCTS, {
+        variables: {
+            userId: parseInt(props.userId)
+        }
+    });
     if(loading){
         return (
             <div className="text-center mt-5">
@@ -27,11 +20,11 @@ export default function Home(){
     }
     if(data){
         return (
-            <>
-                <h1 className="text-center mt-10 mb-5 text-6xl font-bold">All Products</h1>
+            <div>
+                <h1 className="text-center mt-10 mb-5 text-6xl font-bold">My Products</h1>
                 <div className="flex justify-center">
                     <div className="products all-products">
-                        {data.allProducts.map(product => {
+                        {data.userProducts.map(product => {
                             return (
                                 <ProductPreview
                                     key={product.id}
@@ -48,7 +41,7 @@ export default function Home(){
                         })}
                     </div>
                 </div>
-            </>
+            </div>
         )
     }
 }
