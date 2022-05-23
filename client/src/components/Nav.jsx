@@ -9,7 +9,7 @@ export default function Nav(){
                     <Link className="navbar-title text-3xl font-bold" to="/">Tbay</Link>
                 </Typography >
                 {/*<Button component={Link} to="/my-products" color="inherit">My Products</Button>*/}
-                <Button component={Link} to="/loginUser" color="inherit">Login</Button>
+                <Button component={Link} to="/login" color="inherit">Login</Button>
             </Toolbar>
         </AppBar>
     )

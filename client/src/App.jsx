@@ -22,7 +22,7 @@ function App() {
         <Container className="mb-10">
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/loginUser" element={<Login />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/product/:product_id" element={<ProductView />} />
                 <Route path="/product/edit/:product_id" element={<ProductEdit />} />
