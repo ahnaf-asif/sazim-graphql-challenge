@@ -6,13 +6,13 @@ const deleteProduct = {
     type: productType,
     description: 'This mutation takes an id and deletes the product with productId = id',
     args: {
-        id: {
+        productId: {
             type: new GraphQLNonNull(GraphQLInt)
         }
     },
     async resolve(source, args){
         // await product.destroy();
-        const product =  await Db.models.product.findByPk(args.id);
+        const product =  await Db.models.product.findByPk(args.productId);
         return product.destroy();
         // console.log('result is : ', res);
         // return {

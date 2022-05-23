@@ -14,6 +14,9 @@ const ALL_PRODUCTS = gql`
               id 
               name
             }
+            user {
+                id
+            }
         }
     }
 `;

@@ -1,28 +1,28 @@
 import ProductPreview from './ProductPreview';
 import '../css/product.css';
-import {useEffect, useState} from "react";
 
-//helpers
-
-
-import {useQuery, gql} from "@apollo/client";
+import {useQuery} from "@apollo/client";
 import ALL_PRODUCTS from '../graphql/queries/allProducts';
+import {useEffect} from "react";
+import {useUpdateAuth} from "../AuthContext";
+import {CircularProgress} from "@mui/material";
+import * as React from "react";
+
 
 export default function Home(){
-
+    // console.log(apolloClient.cache.data);
     const {error, loading, data} = useQuery(ALL_PRODUCTS);
-    // if(data){
-    //     data.allProducts.map(product => {
-    //         console.log(product)
-    //     })
-    // }
-    // const [allProducts, setAllProducts] = useState([])
-    // useEffect(()=>{
-    //     if(data){
-    //         setAllProducts(data.allProducts);
-    //     }
-    //     // console.log(allProducts);
-    // }, [data]);
+    const updateAuth = useUpdateAuth();
+    useEffect(()=>{
+        updateAuth();
+    }, []);
+    if(loading){
+        return (
+            <div className="text-center mt-5">
+                <CircularProgress />
+            </div>
+        )
+    }
     if(data){
         return (
             <>

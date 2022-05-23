@@ -5,7 +5,12 @@ import Db from "../../db/db.js";
 const allProducts = {
     type: new GraphQLList(ProductType),
     resolve (root, args) {
-        return Db.models.product.findAll({ where: args });
+        return Db.models.product.findAll({
+            where: args,
+            order: [
+                ['id', 'ASC']
+            ]
+        });
     }
 };
 

@@ -5,14 +5,14 @@ import App from './App'
 import './css/index.css'
 
 import { ApolloProvider } from "@apollo/client";
-import client from "./graphql/client";
+import apolloClient from "./graphql/client";
 
 // console.log(client);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
       <BrowserRouter>
-          <ApolloProvider client={client}>
+          <ApolloProvider client={apolloClient}>
             <App />
           </ApolloProvider>
       </BrowserRouter>

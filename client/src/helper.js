@@ -14,5 +14,5 @@ export function timestampToDateString(ts){
 }
 
 export default {
-    timestampToDateString
+    timestampToDateString,
 }

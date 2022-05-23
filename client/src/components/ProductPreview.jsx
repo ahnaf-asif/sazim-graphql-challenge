@@ -12,7 +12,7 @@ export default function ProductPreview(props){
                 <div className="delete-product-icon">
                     <DeleteProduct />
                 </div>
-                <Link className="style-less-link" to={`/product/${props.id}`}>
+                <Link className="style-less-link" to={`/product/view/${props.id}`}>
                     <div className="product-preview py-3 px-5 border border-slate-300 my-5" >
 
                         <div className="title">

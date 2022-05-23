@@ -1,14 +1,15 @@
 import {useUpdateAuth} from "../AuthContext";
 import {useEffect} from "react";
 
-export default function ProductEdit(){
+
+export default function ProuctCreate(){
     const updateAuth = useUpdateAuth();
     useEffect(()=>{
         updateAuth();
     }, []);
-   return (
-       <>
-
-       </>
-   )
+    return (
+        <>
+            hello
+        </>
+    )
 }

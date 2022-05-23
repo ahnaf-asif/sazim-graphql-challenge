@@ -10,12 +10,10 @@ const LOGIN_USER = gql`
             password: $password
         ){ 
             id 
-            firstName 
-            lastName 
-            address 
+            firstName
+            lastName
             email 
             phone 
-            password
         }
     }
         

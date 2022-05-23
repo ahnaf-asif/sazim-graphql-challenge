@@ -17,10 +17,10 @@ const link = from([
     new HttpLink({ uri: "http://localhost:4000/graphql" }),
 ]);
 
-const client = await new ApolloClient({
+const apolloClient = await new ApolloClient({
     link: link,
     cache: new InMemoryCache()
 });
 
 
-export default client;
+export default apolloClient;
