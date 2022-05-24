@@ -4,20 +4,32 @@ const ALL_PRODUCTS = gql`
     query{
         allProducts{
             id 
-            title 
             description
+            title 
             price
             rent
-            rentPaymentPeriod 
-            views
+            rentPaymentPeriod
             status
-            createdAt 
-            categories {
-              id 
-              name
-            }
+            views
+            createdAt
             user {
-                id
+                id 
+            }
+            categories{
+                id 
+                name 
+            }
+            purchaseHistory{
+                user{
+                    id
+                }
+            }
+            rentHistories{
+                from 
+                to
+                user{
+                    id
+                }
             }
         }
     }

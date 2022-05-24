@@ -5,7 +5,7 @@ import ProductForm from "./ProductForm";
 import * as React from "react";
 import {useMutation} from "@apollo/client";
 import ADD_PRODUCT from "../graphql/mutations/addProduct";
-import updateCacheAfterProductCreate from "../graphql/updateCacheAfterProductCreate";
+// import updateCacheAfterProductCreate from "../graphql/updateCacheAfterProductCreate";
 
 const emptyProduct = {
     title: '',
@@ -45,7 +45,7 @@ export default function ProuctCreate(){
             const newProduct = await addProduct({
                 variables: variables,
                 update(cache, data){
-                    updateCacheAfterProductCreate(cache,auth.id, data);
+                    // updateCacheAfterProductCreate(cache,auth.id, data);
                 }
             });
             // console.log(newProduct);

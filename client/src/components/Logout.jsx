@@ -10,18 +10,12 @@ export default function Logout(){
     const updateAuth = useUpdateAuth();
     const getAuth = useGetAuth();
     let navigateTo = useNavigate();
-    useEffect(()=>{
-        //updateAuth();
-        // if(!getAuth){
-        //     updateAuth();
-        //     apolloClient.resetStore();
-        //     navigateTo('/');
-        // }
-    });
+
     function logOut(){
+        // localStorage.setItem('auth', {id: null});
         localStorage.removeItem('auth');
         updateAuth(); // updating auth from the localStorage
-        apolloClient.resetStore();
+        // apolloClient.resetStore();
         navigateTo('/');
     }
     return (

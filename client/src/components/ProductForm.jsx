@@ -8,8 +8,7 @@ import {
     MenuItem,
     OutlinedInput,
     Select,
-    TextField,
-    useTheme
+    TextField
 } from "@mui/material";
 import {useQuery} from "@apollo/client";
 import ALL_CATEGORIES from "../graphql/queries/allCategories";

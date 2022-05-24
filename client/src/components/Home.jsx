@@ -32,6 +32,7 @@ export default function Home(){
                 <div className="flex justify-center">
                     <div className="products all-products">
                         {data.allProducts.map(product => {
+                            // console.log(product);
                             return (
                                 <ProductPreview
                                     key={product.id}

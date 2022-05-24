@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
+import {Button, Dialog} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 
 import '../css/product.css';
@@ -7,7 +7,7 @@ import {useMutation} from "@apollo/client";
 import DELETE_PRODUCT from "../graphql/mutations/deleteProduct";
 import {useNavigate} from "react-router-dom";
 
-import updateCacheAfterProductDelete from "../graphql/updateCacheAfterProductDelete";
+// import updateCacheAfterProductDelete from "../graphql/updateCacheAfterProductDelete";
 
 export default function DeleteProduct(props){
 
@@ -31,7 +31,7 @@ export default function DeleteProduct(props){
                 },
                 update(cache){
                     // updating all products
-                    updateCacheAfterProductDelete(cache, props.userId, props.productId);
+                    //updateCacheAfterProductDelete(cache, props.userId, props.productId);
                 }
             });
             navigateTo('/sack');

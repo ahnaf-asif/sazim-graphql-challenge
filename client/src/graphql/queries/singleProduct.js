@@ -3,21 +3,33 @@ import {gql} from "@apollo/client";
 const SINGLE_PRODUCT = gql`
     query singleProduct( $productId: Int! ){
         singleProduct( productId: $productId ){ 
-            id
-            title
+            id 
             description
-            createdAt
+            title 
             price
             rent
-            views
-            status
             rentPaymentPeriod
-            categories {
-                id
-                name
-            }
+            status
+            views
+            createdAt
             user {
-                id
+                id 
+            }
+            categories{
+                id 
+                name 
+            }
+            purchaseHistory{
+                user{
+                    id
+                }
+            }
+            rentHistories{
+                from 
+                to
+                user{
+                    id
+                }
             }
         }
     }

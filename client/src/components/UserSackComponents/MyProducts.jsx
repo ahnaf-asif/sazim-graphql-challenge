@@ -1,17 +1,13 @@
 import {useQuery} from "@apollo/client";
-import ALL_PRODUCTS from "../graphql/queries/allProducts";
-import USER_PRODUCTS from "../graphql/queries/userProducts";
 import {Button, CircularProgress} from "@mui/material";
 import * as React from "react";
 import {Link} from "react-router-dom";
-import ProductPreview from "./ProductPreview";
+import ProductPreview from "../ProductPreview";
+import ALL_PRODUCTS from "../../graphql/queries/allProducts";
+import {checkIfUserCreatedThisProduct} from "../../helper";
 
 export default function MyProducts(props){
-    const {error, loading, data} = useQuery(USER_PRODUCTS, {
-        variables: {
-            userId: parseInt(props.userId)
-        }
-    });
+    const {error, loading, data} = useQuery(ALL_PRODUCTS);
     if(loading){
         return (
             <div className="text-center mt-5">
@@ -26,16 +22,18 @@ export default function MyProducts(props){
 
                 <div className="flex justify-center">
                     <div className="products all-products">
-                        <div className="mt-10">
+                        <div className="mt-10 mb-5">
                             <Button to="/product/create" variant="contained" color="primary" component={Link}>Create Product</Button>
                         </div>
-                        {data.userProducts.map(product => {
-                            return (
-                                <ProductPreview
-                                    key={product.id}
-                                    product={product}
-                                />
-                            )
+                        {data.allProducts.map(product => {
+                            if(checkIfUserCreatedThisProduct(props.userId, product)){
+                                return (
+                                    <ProductPreview
+                                        key={`myProducts-${product.id}`}
+                                        product={product}
+                                    />
+                                )
+                            }
                         })}
                     </div>
                 </div>

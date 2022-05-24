@@ -6,7 +6,7 @@ import SINGLE_PRODUCT from "../graphql/queries/singleProduct";
 import {CircularProgress} from "@mui/material";
 import * as React from "react";
 import ProductForm from "./ProductForm";
-import updateCacheAfterProductUpdate from "../graphql/updateCacheAfterProductUpdate";
+// import updateCacheAfterProductUpdate from "../graphql/updateCacheAfterProductUpdate";
 import UPDATE_PRODUCT from "../graphql/mutations/updateProduct";
 
 
@@ -45,7 +45,7 @@ export default function ProductEdit(){
                     categories: product.categories
                 },
                 update(cache, data){
-                    updateCacheAfterProductUpdate(cache,auth.id, product.productId, data);
+                    // updateCacheAfterProductUpdate(cache,auth.id, product.productId, data);
                 }
             });
             navigateTo(`/product/view/${productId}`);

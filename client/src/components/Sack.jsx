@@ -5,7 +5,11 @@ import {useNavigate} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {Box, Tab, Tabs} from "@mui/material";
 
-import MyProducts from "./MyProducts";
+import MyProducts from "./UserSackComponents/MyProducts";
+import BoughtProducts from "./UserSackComponents/BoughtProducts";
+import SoldProducts from "./UserSackComponents/SoldProducts";
+import LentProducts from "./UserSackComponents/LentProducts";
+import BorrowedProducts from "./UserSackComponents/BorrowedProducts";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -51,18 +55,15 @@ export default function Sack(){
         }
     }, []);
 
-
-
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        console.log(value);
     };
     return (
         <div className="mt-10">
             <Box sx={{ width: '100%' }}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', overflow: "auto" }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="My Products" />
                         <Tab label="Bought" />
@@ -75,16 +76,16 @@ export default function Sack(){
                     <MyProducts userId={auth.id} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    Bought
+                    <BoughtProducts userId={auth.id} />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    Sold
+                    <SoldProducts userId={auth.id} />
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                    Borrowed
+                    <BorrowedProducts userId={auth.id} />
                 </TabPanel>
                 <TabPanel value={value} index={4}>
-                    Lent
+                    <LentProducts userId={auth.id} />
                 </TabPanel>
             </Box>
         </div>

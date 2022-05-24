@@ -4,6 +4,8 @@ import {
 } from 'graphql';
 
 import ProductType from "./ProductType.js";
+import purchaseHistoryType from "./PurchaseHistoryType.js";
+import rentHistoryType from "./RentHistoryType.js";
 
 const UserType = new GraphQLObjectType({
     name: 'UserType',
@@ -51,6 +53,18 @@ const UserType = new GraphQLObjectType({
                 resolve(user){
                     return user.password;
                 }
+            },
+            rentHistories: {
+                type: new GraphQLList(rentHistoryType),
+                resolve(user){
+                    return user.getRentHistories();
+                }
+            },
+            purchaseHistories: {
+              type: new GraphQLList(purchaseHistoryType),
+              resolve(user){
+                  return user.getPurchaseHistories();
+              }
             },
             products: {
                 type: new GraphQLList(ProductType),

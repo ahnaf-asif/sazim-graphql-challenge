@@ -4,14 +4,28 @@ import Product from './Tables/Product.js';
 import Category from './Tables/Category.js';
 import PurchaseHistory from "./Tables/PurchaseHistory.js";
 import RentHistory from "./Tables/RentHistory.js";
-
 // database relations
 
-// a user can make multiple products but every product will belong to only one user
+// a user can make multiple products but every product belongs to only one user
 User.hasMany(Product);
 Product.belongsTo(User);
 
-// a product can have many categories and a category can also have many posts
+// a user can have many purchase histories but a purchase history belongs to only one user
+User.hasMany(PurchaseHistory);
+PurchaseHistory.belongsTo(User);
+
+Product.hasOne(PurchaseHistory);
+PurchaseHistory.belongsTo(Product);
+
+// a user can have many rent histories but a rent history belongs to only one user
+User.hasMany(RentHistory);
+RentHistory.belongsTo(User);
+
+// a product can have many rent histories but a rent history belongs to only one product
+Product.hasMany(RentHistory);
+RentHistory.belongsTo(User);
+
+// a product can have many categories and a category can also have many products
 Product.belongsToMany(Category, {through: 'CategoryProduct'});
 Category.belongsToMany(Product, {through: 'CategoryProduct'});
 

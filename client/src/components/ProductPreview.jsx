@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import {timestampToDateString} from '../helper';
+import {checkIfProductAlreadySold, checkIfUserCreatedThisProduct, timestampToDateString} from '../helper';
 
 import {useGetAuth} from "../AuthContext";
 import ProductEditDeleteSection from "./ProductEditDeleteSection";
@@ -14,10 +14,10 @@ export default function ProductPreview(props){
     return (
         <>
             <div style={{position: 'relative', overflow: 'hidden'}}>
-                {auth && auth.id === props.product.user.id &&
+                {checkIfUserCreatedThisProduct(props.product) &&
                     <ProductEditDeleteSection userId={auth.id} productId={props.product.id} />
                 }
-                {!props.product.status !== 'active' &&
+                {checkIfProductAlreadySold(props.product) &&
                     <div className="arrow-right">
                         <span>Sold</span>
                     </div>

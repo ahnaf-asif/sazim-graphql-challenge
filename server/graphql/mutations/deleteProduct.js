@@ -11,14 +11,18 @@ const deleteProduct = {
         }
     },
     async resolve(source, args){
-        // await product.destroy();
+
         const product =  await Db.models.product.findByPk(args.productId);
+
+        // destroying all purchaseHistory data that is related to this product from the table
+        await Db.models.purchaseHistory.destroy({
+            where: {
+                productId: args.productId
+            }
+        });
+
         return product.destroy();
-        // console.log('result is : ', res);
-        // return {
-        //     product : product.reload,
-        //     deletedId: args.id
-        // }
+
     }
 }
 
