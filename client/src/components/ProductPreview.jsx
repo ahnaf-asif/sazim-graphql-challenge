@@ -3,24 +3,32 @@ import { Link } from 'react-router-dom';
 
 import {timestampToDateString} from '../helper';
 
-import DeleteProduct from "./DeleteProduct";
+import {useGetAuth} from "../AuthContext";
+import ProductEditDeleteSection from "./ProductEditDeleteSection";
+import {printCategories} from "../helper";
 
 export default function ProductPreview(props){
+
+    const auth = useGetAuth();
+
     return (
         <>
             <div style={{position: 'relative'}}>
-                <div className="delete-product-icon">
-                    <DeleteProduct />
-                </div>
+                {auth && auth.id === props.userId &&
+                    <ProductEditDeleteSection userId={auth.id} productId={props.id} />
+                }
                 <Link className="style-less-link" to={`/product/view/${props.id}`}>
                     <div className="product-preview py-3 px-5 border border-slate-300 my-5" >
 
                         <div className="title">
                             <h1 className="text-2xl font-bold">{props.title}</h1>
-                            <h5 className="text-xs text-gray-400 font-bold">Categories: Electrnics</h5>
+                            <h5 className="text-xs text-gray-400 font-bold">Categories: {printCategories(props.categories)}</h5>
                             <h5 className="text-xs text-gray-400 font-bold">Price: ${props.price}</h5>
                             <p className="mt-5">
-                                {props.description}
+                                {props.description.length > 200
+                                    ? <span> {props.description.slice(0,200)} <span className="text-blue-600"> ... see more</span> </span>
+                                    : props.description
+                                }
                             </p>
                             <div className="mt-5 date-and-views flex justify-between text-xs text-gray-400">
                                 <div className="dates">Date posted: {timestampToDateString(props.createdAt)}</div>

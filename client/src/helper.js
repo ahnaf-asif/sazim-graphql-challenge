@@ -13,6 +13,12 @@ export function timestampToDateString(ts){
     return `${day} ${month}, ${year}`;
 }
 
+export function printCategories(categories){
+    const categoryNames = categories.map(cat => cat.name);
+    return categoryNames.toString();
+}
+
 export default {
     timestampToDateString,
+    printCategories
 }

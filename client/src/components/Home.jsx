@@ -36,6 +36,7 @@ export default function Home(){
                                 <ProductPreview
                                     key={product.id}
                                     id={product.id}
+                                    userId={product.user.id}
                                     title={product.title}
                                     description={product.description}
                                     price={product.price}

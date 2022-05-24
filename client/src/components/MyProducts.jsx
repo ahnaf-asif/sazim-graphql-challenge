@@ -1,8 +1,9 @@
 import {useQuery} from "@apollo/client";
 import ALL_PRODUCTS from "../graphql/queries/allProducts";
 import USER_PRODUCTS from "../graphql/queries/userProducts";
-import {CircularProgress} from "@mui/material";
+import {Button, CircularProgress} from "@mui/material";
 import * as React from "react";
+import {Link} from "react-router-dom";
 import ProductPreview from "./ProductPreview";
 
 export default function MyProducts(props){
@@ -21,7 +22,8 @@ export default function MyProducts(props){
     if(data){
         return (
             <div>
-                <h1 className="text-center mt-10 mb-5 text-6xl font-bold">My Products</h1>
+                <h1 className="text-center mt-10 mb-5 text-5xl font-bold">My Products</h1>
+                <Button to="/product/create" variant="contained" color="primary" component={Link}>Create Product</Button>
                 <div className="flex justify-center">
                     <div className="products all-products">
                         {data.userProducts.map(product => {
@@ -29,6 +31,7 @@ export default function MyProducts(props){
                                 <ProductPreview
                                     key={product.id}
                                     id={product.id}
+                                    userId={product.user.id}
                                     title={product.title}
                                     description={product.description}
                                     price={product.price}

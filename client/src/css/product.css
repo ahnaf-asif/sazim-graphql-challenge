@@ -27,3 +27,10 @@
 .edit-delete-section{
     position: relative;
 }
+.product-form{
+    width: min(100%, 650px);
+    margin: auto;
+}
+.three-pair-input {
+    width: 30%;
+}
