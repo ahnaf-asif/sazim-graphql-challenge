@@ -1,4 +1,4 @@
-import ProductPreview from './ProductPreview';
+import ProductPreview from './ProductUpdateComponents/ProductPreview';
 import '../css/product.css';
 
 import {useQuery} from "@apollo/client";

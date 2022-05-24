@@ -1,13 +1,17 @@
 import { gql } from "@apollo/client";
 
-const BUY_PRODUCT = gql`
-    mutation buyProduct(
+const RENT_PRODUCT = gql`
+    mutation rentProduct(
+        $from: String!,
+        $to: String!,
         $productId: Int!,
         $userId: Int!
     ){
-        buyProduct(
+        rentProduct(
             productId: $productId
             userId: $userId
+            from: $from
+            to: $to
         ){ 
             id 
             description
@@ -42,4 +46,4 @@ const BUY_PRODUCT = gql`
         
 `;
 
-export default BUY_PRODUCT;
+export default RENT_PRODUCT;

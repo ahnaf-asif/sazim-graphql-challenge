@@ -1,5 +1,5 @@
 import ProductType from "../types/ProductType.js";
-import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from "graphql";
+import {GraphQLInt, GraphQLNonNull} from "graphql";
 import Db from "../../db/db.js";
 
 const buyProduct = {
@@ -8,10 +8,7 @@ const buyProduct = {
 
     // defining the arguments that can be passed through this mutation
     args: {
-        sellerId: {
-            type: new GraphQLNonNull(GraphQLInt)
-        },
-        buyerId: {
+        userId: {
             type: new GraphQLNonNull(GraphQLInt)
         },
         productId: {
@@ -19,15 +16,15 @@ const buyProduct = {
         }
     },
     async resolve (source, args) {
-        await Db.models.purchaseHistory.create({
-            sellerId: args.sellerId,
-            buyerId: args.buyerId,
-            productId: args.productId,
-        });
-        const productBought = await Db.models.product.findByPk(args.productId);
-        productBought.status="sold";
-        await productBought.save();
-        return productBought;
+        try{
+            await Db.models.purchaseHistory.create({
+                userId: args.userId,
+                productId: args.productId
+            });
+            return await Db.models.product.findByPk(args.productId);
+        }catch(e){
+            console.log(e);
+        }
     }
 }
 

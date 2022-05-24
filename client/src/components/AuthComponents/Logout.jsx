@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
-import {useUpdateAuth, useGetAuth} from "../AuthContext";
-import apolloClient from "../graphql/client";
+import {useUpdateAuth, useGetAuth} from "../../AuthContext";
 import {Link, useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 

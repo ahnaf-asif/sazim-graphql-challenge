@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import {checkIfProductAlreadySold, checkIfUserCreatedThisProduct, timestampToDateString} from '../helper';
+import {checkIfProductAlreadySold, checkIfUserCreatedThisProduct, timestampToDateString, printCategories} from '../../helper';
 
-import {useGetAuth} from "../AuthContext";
+import {useGetAuth} from "../../AuthContext";
 import ProductEditDeleteSection from "./ProductEditDeleteSection";
-import {printCategories} from "../helper";
 
 export default function ProductPreview(props){
 

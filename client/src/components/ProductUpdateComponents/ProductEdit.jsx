@@ -1,13 +1,13 @@
-import {useGetAuth, useUpdateAuth} from "../AuthContext";
+import {useGetAuth, useUpdateAuth} from "../../AuthContext";
 import {useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useMutation, useQuery} from "@apollo/client";
-import SINGLE_PRODUCT from "../graphql/queries/singleProduct";
+import SINGLE_PRODUCT from "../../graphql/queries/singleProduct";
 import {CircularProgress} from "@mui/material";
 import * as React from "react";
 import ProductForm from "./ProductForm";
-// import updateCacheAfterProductUpdate from "../graphql/updateCacheAfterProductUpdate";
-import UPDATE_PRODUCT from "../graphql/mutations/updateProduct";
+import UPDATE_PRODUCT from "../../graphql/mutations/updateProduct";
+import updateCacheAfterUpdateProduct from "../../graphql/cacheHandlers/updateCacheAfterUpdateProduct";
 
 
 export default function ProductEdit(){
@@ -44,8 +44,8 @@ export default function ProductEdit(){
                     rentPaymentPeriod: product.rentPaymentPeriod,
                     categories: product.categories
                 },
-                update(cache, data){
-                    // updateCacheAfterProductUpdate(cache,auth.id, product.productId, data);
+                update(cache, {data}){
+                    updateCacheAfterUpdateProduct(cache, data.updateProduct);
                 }
             });
             navigateTo(`/product/view/${productId}`);

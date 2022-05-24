@@ -19,20 +19,33 @@ const UPDATE_PRODUCT = gql`
             rentPaymentPeriod: $rentPaymentPeriod
             categories: $categories
         ){ 
-            id
-            title
+            id 
             description
+            title 
             price
             rent
-            views
-            status
             rentPaymentPeriod
-            categories {
-                id
-                name
+            status
+            views
+            createdAt
+            user {
+                id 
             }
-            user{
-                id
+            categories{
+                id 
+                name 
+            }
+            purchaseHistory{
+                user{
+                    id
+                }
+            }
+            rentHistories{
+                from 
+                to
+                user{
+                    id
+                }
             }
         }
     }

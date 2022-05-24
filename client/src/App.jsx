@@ -8,11 +8,11 @@ import {
 import Nav from "./components/Nav";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./components/AuthComponents/Login";
+import Register from "./components/AuthComponents/Register";
 import ProductView from "./components/ProductView";
-import ProductEdit from "./components/ProductEdit";
-import ProductCreate from "./components/ProductCreate";
+import ProductEdit from "./components/ProductUpdateComponents/ProductEdit";
+import ProductCreate from "./components/ProductUpdateComponents/ProductCreate";
 import Sack from "./components/Sack";
 
 import AuthProvider from "./AuthContext";

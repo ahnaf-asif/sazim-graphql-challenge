@@ -1,15 +1,13 @@
 import * as React from "react";
 import {Button, Dialog} from "@mui/material";
-import {Delete} from "@mui/icons-material";
 
-import '../css/product.css';
+import '../../css/product.css';
 import {useMutation} from "@apollo/client";
-import DELETE_PRODUCT from "../graphql/mutations/deleteProduct";
+import BUY_PRODUCT from "../../graphql/mutations/buyProduct";
 import {useNavigate} from "react-router-dom";
+import updateCacheAfterUpdateProduct from "../../graphql/cacheHandlers/updateCacheAfterUpdateProduct";
 
-// import updateCacheAfterProductDelete from "../graphql/updateCacheAfterProductDelete";
-
-export default function DeleteProduct(props){
+export default function ProductBuy(props){
 
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
@@ -18,46 +16,41 @@ export default function DeleteProduct(props){
     const handleClose = () => {
         setOpen(false);
     };
-
-    const [deleteProduct, { data, loading, error }] = useMutation(DELETE_PRODUCT);
-
-    let navigateTo = useNavigate();
-
-    async function handleDeleteProduct() {
+    const [buyProduct] = useMutation(BUY_PRODUCT);
+    const navigateTo = useNavigate();
+    async function handleBuyProduct(){
         try{
-            const resp = await deleteProduct({
+            await buyProduct({
                 variables: {
-                    productId: parseInt(props.productId)
+                    productId: parseInt(props.productId),
+                    userId: parseInt(props.userId),
                 },
-                update(cache){
-                    // updating all products
-                    //updateCacheAfterProductDelete(cache, props.userId, props.productId);
+                update(cache, {data}){
+                    updateCacheAfterUpdateProduct(cache, data.buyProduct);
                 }
             });
-            navigateTo('/sack');
+            navigateTo(`/sack`);
         }catch(e){
             console.log(e);
         }
     }
-
     return (
         <>
-            <Delete onClick={handleClickOpen} />
+            <Button onClick={handleClickOpen} variant="contained" color="success"> Buy </Button>
             <Dialog
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-
                 <h1 className="text-4xl font-bold py-5 px-5">
-                    Are you sure you want to delete this product?
+                    Are you sure you want to Buy this product?
                 </h1>
                 <div className="py-5 text-right px-5">
                     <Button variant="contained" color="error" onClick={handleClose}>
                         No
                     </Button> &nbsp;&nbsp;
-                    <Button variant="contained" color="primary" onClick={handleDeleteProduct}>
+                    <Button variant="contained" color="primary" onClick={handleBuyProduct}>
                         Yes
                     </Button>
                 </div>

@@ -1,16 +1,22 @@
 import * as React from "react";
-import ProductBuy from "./ProductBuy";
-import ProductRent from "./ProductRent";
+import ProductBuy from "./ProductUpdateComponents/ProductBuy";
+import ProductRent from "./ProductUpdateComponents/ProductRent";
 
 import { useParams, Link } from "react-router-dom";
 import {useMutation, useQuery} from "@apollo/client";
 import SINGLE_PRODUCT from "../graphql/queries/singleProduct";
 import {useGetAuth} from '../AuthContext';
-import ProductEditDeleteSection from "./ProductEditDeleteSection";
-import {checkIfProductAlreadySold, checkIfUserCreatedThisProduct, printCategories, timestampToDateString} from "../helper";
+import ProductEditDeleteSection from "./ProductUpdateComponents/ProductEditDeleteSection";
+import {
+    checkIfProductAlreadySold,
+    printCategories,
+    shouldShowBuyRent,
+    timestampToDateString
+} from "../helper";
 import {useEffect} from "react";
 import INCREASE_PRODUCT_VIEWS from "../graphql/mutations/increaseProductViews";
 import {Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import updateCacheAfterCreateProduct from "../graphql/cacheHandlers/updateCacheAfterCreateProduct";
 
 export default function ProductView(){
     let { productId } = useParams();
@@ -30,9 +36,9 @@ export default function ProductView(){
                 variables: {
                     productId: parseInt(productId),
                 },
-                // update(cache, data){
-                //     // updateCacheAfterProductUpdate(cache,auth.id, productId, data);
-                // }
+                update(cache, {data}){
+                    updateCacheAfterCreateProduct(cache, data.increaseProductViews);
+                }
             });
         }catch(e){
             console.log(e);
@@ -56,10 +62,11 @@ export default function ProductView(){
                         <h5 className="text-xs text-gray-400 font-bold">Price: ${data.singleProduct.price}</h5>
                         <p className="mt-5">{data.singleProduct.description}</p>
                     </div>
-                    {!checkIfUserCreatedThisProduct(data.singleProduct) && !checkIfProductAlreadySold(data.singleProduct) &&
+                    {shouldShowBuyRent(data.singleProduct) &&
                         <div className="product-action mt-10">
                             <div className="buy-rent text-right">
-                                <ProductBuy productId={data.singleProduct.id} sellerId={data.singleProduct.user.id} buyerId={auth.id} /> &nbsp; <ProductRent/>
+                                <ProductBuy userId={auth.id} productId={data.singleProduct.id} /> &nbsp;
+                                <ProductRent userId={auth.id} product={data.singleProduct} />
                             </div>
                         </div>
                     }
@@ -82,10 +89,10 @@ export default function ProductView(){
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {data.singleProduct.rentHistories.map((rentHistory, i) => (
-                                    <TableRow key={i} >
-                                        <TableCell align="left">{timestampToDateString(rentHistory.from)}</TableCell>
-                                        <TableCell align="left">{timestampToDateString(rentHistory.to)}</TableCell>
+                                {data.singleProduct.rentHistories.map((rentHistory) => (
+                                    <TableRow key={rentHistory.from} >
+                                        <TableCell align="left">{timestampToDateString(parseInt(rentHistory.from))}</TableCell>
+                                        <TableCell align="left">{timestampToDateString(parseInt(rentHistory.to))}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

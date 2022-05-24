@@ -1,6 +1,6 @@
 import {useQuery} from "@apollo/client";
 import * as React from "react";
-import ProductPreview from "../ProductPreview";
+import ProductPreview from "../ProductUpdateComponents/ProductPreview";
 import {CircularProgress} from "@mui/material";
 import ALL_PRODUCTS from "../../graphql/queries/allProducts";
 import {checkIfUserBorrowedThisProduct} from "../../helper";
@@ -22,7 +22,7 @@ export default function BorrowedProducts(props){
                 <div className="flex justify-center">
                     <div className="products all-products">
                         {data.allProducts.map(product => {
-                            if(checkIfUserBorrowedThisProduct(props.userId, product)){
+                            if(checkIfUserBorrowedThisProduct(product)){
                                 return (
                                     <ProductPreview
                                         key={`boughtProducts-${product.id}`}

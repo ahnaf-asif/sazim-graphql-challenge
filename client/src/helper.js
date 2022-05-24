@@ -37,22 +37,32 @@ export function checkIfUserBoughtThisProduct(product){
 }
 export function checkIfUserCreatedThisProduct(product){
     const auth = JSON.parse(localStorage.getItem('auth'));
-    if(!auth)return false;
-    return product.user.id === auth.id;
+    if(!auth){
+        return false;
+    }
+    else{
+        return product.user.id === auth.id;
+    }
 }
 export function checkIfUserSoldThisProduct(product){
     const auth = JSON.parse(localStorage.getItem('auth'));
-    if(!auth)return false;
+    if(!auth){
+        return false;
+    }
     return product.user.id === auth.id && product.purchaseHistory
 }
 export function checkIfUserLentThisProduct(product){
     const auth = JSON.parse(localStorage.getItem('auth'));
-    if(!auth)return false;
+    if(!auth){
+        return false;
+    }
     return product.user.id === auth.id &&  product.rentHistories.length > 0;
 }
 export function checkIfUserBorrowedThisProduct(product){
     const auth = JSON.parse(localStorage.getItem('auth'));
-    if(!auth)return false;
+    if(!auth){
+        return false;
+    }
     for(const rentHistory of product.rentHistories){
         if(rentHistory.user.id === auth.id){
             return true;
@@ -64,6 +74,25 @@ export function checkIfUserBorrowedThisProduct(product){
 export function checkIfProductAlreadySold(product){
     return product.purchaseHistory;
 }
+export function shouldShowBuyRent(product){
+    const auth = JSON.parse(localStorage.getItem('auth'));
+    if(!auth){
+        return false;
+    }
+
+    if(checkIfUserCreatedThisProduct(product))return false;
+    return !checkIfProductAlreadySold(product);
+}
+
+export function checkIfTimePeriodAvailable(from, to, existingTimeSegments){
+    for(const timeLine of existingTimeSegments){
+        if(timeLine.from <= from && timeLine.to >= from)return false;
+        if(timeLine.from <= to && timeLine.to >= to)return false;
+        if(timeLine.from <= from && timeLine.from >= to)return false;
+        if(timeLine.from >=from && timeLine.to <= to)return false;
+    }
+    return true;
+}
 
 export default {
     timestampToDateString,
@@ -73,5 +102,6 @@ export default {
     checkIfUserSoldThisProduct,
     checkIfUserLentThisProduct,
     checkIfUserBorrowedThisProduct,
-    checkIfProductAlreadySold
+    checkIfProductAlreadySold,
+    shouldShowBuyRent
 }

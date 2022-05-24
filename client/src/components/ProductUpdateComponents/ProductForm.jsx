@@ -11,7 +11,7 @@ import {
     TextField
 } from "@mui/material";
 import {useQuery} from "@apollo/client";
-import ALL_CATEGORIES from "../graphql/queries/allCategories";
+import ALL_CATEGORIES from "../../graphql/queries/allCategories";
 
 const rentPaymentPeriodOptions = [
     'hourly', 'daily', 'monthly', 'yearly'

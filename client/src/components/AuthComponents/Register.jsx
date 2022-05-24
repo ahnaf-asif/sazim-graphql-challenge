@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../css/login-register.css';
+import '../../css/login-register.css';
 
 import{
     Link
@@ -13,9 +13,9 @@ import {
     Visibility, VisibilityOff
 } from "@mui/icons-material";
 
-import REGISTER_USER from "../graphql/mutations/registerUser";
+import REGISTER_USER from "../../graphql/mutations/registerUser";
 import {useMutation} from "@apollo/client";
-import {useUpdateAuth} from "../AuthContext";
+import {useUpdateAuth} from "../../AuthContext";
 
 import { useNavigate } from 'react-router-dom';
 

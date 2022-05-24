@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {AppBar, Button, Toolbar, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
-import Logout from "./Logout";
+import Logout from "./AuthComponents/Logout";
 import {useGetAuth} from '../AuthContext';
 
 

@@ -1,11 +1,11 @@
-import {useGetAuth, useUpdateAuth} from "../AuthContext";
+import {useGetAuth, useUpdateAuth} from "../../AuthContext";
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import ProductForm from "./ProductForm";
 import * as React from "react";
 import {useMutation} from "@apollo/client";
-import ADD_PRODUCT from "../graphql/mutations/addProduct";
-// import updateCacheAfterProductCreate from "../graphql/updateCacheAfterProductCreate";
+import ADD_PRODUCT from "../../graphql/mutations/addProduct";
+import updateCacheAfterCreateProduct from "../../graphql/cacheHandlers/updateCacheAfterCreateProduct";
 
 const emptyProduct = {
     title: '',
@@ -44,11 +44,11 @@ export default function ProuctCreate(){
             // console.log(variables);
             const newProduct = await addProduct({
                 variables: variables,
-                update(cache, data){
-                    // updateCacheAfterProductCreate(cache,auth.id, data);
+                update(cache, {data}){
+                    updateCacheAfterCreateProduct(cache, data.addProduct);
                 }
             });
-            // console.log(newProduct);
+            // console.log(newProduct.data.addProduct);
             navigateTo(`/product/view/${newProduct.data.addProduct.id}`);
         }catch(e){
             console.log(e);

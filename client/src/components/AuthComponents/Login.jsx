@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../css/login-register.css';
+import '../../css/login-register.css';
 
 import{
     Link
@@ -17,9 +17,9 @@ import {
 } from "@mui/icons-material";
 
 // import { readQuery } from "@apollo/client";
-import LOGIN_USER from "../graphql/mutations/loginUser";
+import LOGIN_USER from "../../graphql/mutations/loginUser";
 import {useMutation} from "@apollo/client";
-import {useUpdateAuth} from "../AuthContext";
+import {useUpdateAuth} from "../../AuthContext";
 
 import { useNavigate } from 'react-router-dom';
 

@@ -2,7 +2,7 @@ import {useQuery} from "@apollo/client";
 import {Button, CircularProgress} from "@mui/material";
 import * as React from "react";
 import {Link} from "react-router-dom";
-import ProductPreview from "../ProductPreview";
+import ProductPreview from "../ProductUpdateComponents/ProductPreview";
 import ALL_PRODUCTS from "../../graphql/queries/allProducts";
 import {checkIfUserCreatedThisProduct} from "../../helper";
 
@@ -26,7 +26,7 @@ export default function MyProducts(props){
                             <Button to="/product/create" variant="contained" color="primary" component={Link}>Create Product</Button>
                         </div>
                         {data.allProducts.map(product => {
-                            if(checkIfUserCreatedThisProduct(props.userId, product)){
+                            if(checkIfUserCreatedThisProduct(product)){
                                 return (
                                     <ProductPreview
                                         key={`myProducts-${product.id}`}

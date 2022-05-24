@@ -2,10 +2,11 @@ import * as React from "react";
 import {Button, Dialog} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 
-import '../css/product.css';
+import '../../css/product.css';
 import {useMutation} from "@apollo/client";
-import BUY_PRODUCT from "../graphql/mutations/buyProduct";
+import DELETE_PRODUCT from "../../graphql/mutations/deleteProduct";
 import {useNavigate} from "react-router-dom";
+import updateCacheAfterDeleteProduct from "../../graphql/cacheHandlers/updateCacheAfterDeleteProduct";
 
 
 export default function DeleteProduct(props){
@@ -18,28 +19,29 @@ export default function DeleteProduct(props){
         setOpen(false);
     };
 
-    const [buyProduct] = useMutation(BUY_PRODUCT);
-    const navigateTo = useNavigate();
-    async function handleBuyProduct(){
+    const [deleteProduct, { data, loading, error }] = useMutation(DELETE_PRODUCT);
+
+    let navigateTo = useNavigate();
+
+    async function handleDeleteProduct() {
         try{
-            await buyProduct({
+            const resp = await deleteProduct({
                 variables: {
-                    productId: parseInt(props.productId),
-                    sellerId: parseInt(props.sellerId),
-                    buyerId: parseInt(props.buyerId),
+                    productId: parseInt(props.productId)
                 },
-                update(cache, data){
-                    // updateCacheAfterProductBuy(cache, props.buyerId, props.productId, data);
+                update(cache){
+                    updateCacheAfterDeleteProduct(cache, props.productId);
                 }
             });
-            navigateTo(`/sack`);
+            navigateTo('/sack');
         }catch(e){
             console.log(e);
         }
     }
+
     return (
         <>
-            <Button onClick={handleClickOpen} variant="contained" color="success"> Buy </Button>
+            <Delete onClick={handleClickOpen} />
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -48,13 +50,13 @@ export default function DeleteProduct(props){
             >
 
                 <h1 className="text-4xl font-bold py-5 px-5">
-                    Are you sure you want to Buy this product?
+                    Are you sure you want to delete this product?
                 </h1>
                 <div className="py-5 text-right px-5">
                     <Button variant="contained" color="error" onClick={handleClose}>
                         No
                     </Button> &nbsp;&nbsp;
-                    <Button variant="contained" color="primary" onClick={handleBuyProduct}>
+                    <Button variant="contained" color="primary" onClick={handleDeleteProduct}>
                         Yes
                     </Button>
                 </div>

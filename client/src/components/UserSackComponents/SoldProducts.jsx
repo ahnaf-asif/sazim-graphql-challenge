@@ -1,7 +1,7 @@
 import {useQuery} from "@apollo/client";
 import {CircularProgress} from "@mui/material";
 import * as React from "react";
-import ProductPreview from "../ProductPreview";
+import ProductPreview from "../ProductUpdateComponents/ProductPreview";
 import ALL_PRODUCTS from "../../graphql/queries/allProducts";
 import {checkIfUserSoldThisProduct} from "../../helper";
 
@@ -22,7 +22,7 @@ export default function SoldProducts(props){
                 <div className="flex justify-center">
                     <div className="products all-products">
                         {data.allProducts.map(product => {
-                            if(checkIfUserSoldThisProduct(props.userId, product)) {
+                            if(checkIfUserSoldThisProduct(product)) {
                                 return (
                                     <ProductPreview
                                         key={`myProducts-${product.id}`}
