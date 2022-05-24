@@ -9,6 +9,8 @@ const ALL_PRODUCTS = gql`
             price
             rent
             rentPaymentPeriod 
+            views
+            status
             createdAt 
             categories {
               id 

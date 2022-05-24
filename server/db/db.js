@@ -2,6 +2,8 @@ import DB_CONNECTION from './connection.js';
 import User from './Tables/User.js';
 import Product from './Tables/Product.js';
 import Category from './Tables/Category.js';
+import PurchaseHistory from "./Tables/PurchaseHistory.js";
+import RentHistory from "./Tables/RentHistory.js";
 
 // database relations
 
@@ -14,6 +16,7 @@ Product.belongsToMany(Category, {through: 'CategoryProduct'});
 Category.belongsToMany(Product, {through: 'CategoryProduct'});
 
 // await DB_CONNECTION.sync({ force: true });
+
 try {
     await DB_CONNECTION.authenticate();
     console.log('Connection has been established successfully.');

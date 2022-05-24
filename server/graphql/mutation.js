@@ -6,6 +6,7 @@ import loginUser from "./mutations/loginUser.js";
 import deleteProduct from "./mutations/deleteProduct.js";
 import addCategories from "./mutations/addCategories.js";
 import updateProduct from "./mutations/updateProduct.js";
+import increaseProductViews from "./mutations/increaseProductViews.js";
 
 const Mutation = new GraphQLObjectType({
     name: 'Mutations',
@@ -20,6 +21,7 @@ const Mutation = new GraphQLObjectType({
             addProduct: addProduct,
             updateProduct: updateProduct,
             deleteProduct: deleteProduct,
+            increaseProductViews: increaseProductViews,
 
             //category related mutations
             addCategories: addCategories,

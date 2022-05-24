@@ -21,6 +21,14 @@ const Product = DB_CONNECTION.define('product', {
     rentPaymentPeriod: {
         type: Sequelize.STRING,
         allowNull: false,
+    },
+    views: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+    },
+    status: {
+        type: Sequelize.STRING,
+        defaultValue: 'active'
     }
 })
 

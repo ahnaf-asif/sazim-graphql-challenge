@@ -10,11 +10,11 @@ import apolloClient from "./graphql/client";
 // console.log(client);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-      <BrowserRouter>
-          <ApolloProvider client={apolloClient}>
-            <App />
-          </ApolloProvider>
-      </BrowserRouter>
-  </React.StrictMode>
+
+  <BrowserRouter>
+      <ApolloProvider client={apolloClient}>
+        <App />
+      </ApolloProvider>
+  </BrowserRouter>
+
 )

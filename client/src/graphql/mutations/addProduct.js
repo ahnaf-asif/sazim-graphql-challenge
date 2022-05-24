@@ -24,6 +24,8 @@ const ADD_PRODUCT = gql`
             description
             price
             rent
+            views 
+            status
             rentPaymentPeriod
             createdAt
             categories {

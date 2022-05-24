@@ -33,15 +33,7 @@ export default function MyProducts(props){
                             return (
                                 <ProductPreview
                                     key={product.id}
-                                    id={product.id}
-                                    userId={product.user.id}
-                                    title={product.title}
-                                    description={product.description}
-                                    price={product.price}
-                                    rent={product.rent}
-                                    rentPaymentPeriod={product.rentPaymentPeriod}
-                                    createdAt={product.createdAt}
-                                    categories={product.categories}
+                                    product={product}
                                 />
                             )
                         })}

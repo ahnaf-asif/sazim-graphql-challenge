@@ -46,6 +46,18 @@ const ProductType = new GraphQLObjectType({
                     return product.rentPaymentPeriod;
                 }
             },
+            status: {
+              type: GraphQLString,
+              resolve(product){
+                  return product.status;
+              }
+            },
+            views: {
+                type: GraphQLInt,
+                resolve(product){
+                    return product.views;
+                }
+            },
             createdAt: {
                 type: GraphQLString,
                 resolve(product){

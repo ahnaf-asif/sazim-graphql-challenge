@@ -72,7 +72,7 @@ export default function ProductForm(props){
                     <br/><br/>
 
                     <FormControl className="w-full">
-                        <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+                        <InputLabel id="demo-multiple-chip-label">Categories</InputLabel>
                         <Select
                             labelId="demo-multiple-chip-label"
                             id="demo-multiple-chip"
@@ -80,7 +80,7 @@ export default function ProductForm(props){
                             value={selectedCategories}
                             required
                             onChange={handleCategoryChange}
-                            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                            input={<OutlinedInput id="select-multiple-chip" label="Categories" />}
                             renderValue={(selected) => (
                                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                     {selected.map((value) => (

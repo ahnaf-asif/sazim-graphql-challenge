@@ -3,11 +3,14 @@ import ProductBuy from "./ProductBuy";
 import ProductRent from "./ProductRent";
 
 import { useParams, Link } from "react-router-dom";
-import {useQuery} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
 import SINGLE_PRODUCT from "../graphql/queries/singleProduct";
 import {useGetAuth} from '../AuthContext';
 import ProductEditDeleteSection from "./ProductEditDeleteSection";
 import {printCategories} from "../helper";
+import {useEffect} from "react";
+import INCREASE_PRODUCT_VIEWS from "../graphql/mutations/increaseProductViews";
+import updateCacheAfterProductUpdate from "../graphql/updateCacheAfterProductUpdate";
 
 export default function ProductView(){
     let { productId } = useParams();
@@ -19,6 +22,26 @@ export default function ProductView(){
             productId: parseInt(productId)
         }
     });
+
+    const [increaseProductViews] = useMutation(INCREASE_PRODUCT_VIEWS);
+    async function handleIncreaseProductViews(){
+        try{
+            const res = await increaseProductViews({
+                variables: {
+                    productId: parseInt(productId),
+                },
+                update(cache, data){
+                    updateCacheAfterProductUpdate(cache,auth.id, productId, data);
+                }
+            });
+        }catch(e){
+            console.log(e);
+        }
+    }
+    useEffect ( () =>{
+        handleIncreaseProductViews();
+    }, []);
+
     if(data){
         return (
             <div className="flex justify-center">
