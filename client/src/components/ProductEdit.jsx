@@ -10,7 +10,6 @@ import updateCacheAfterProductUpdate from "../graphql/updateCacheAfterProductUpd
 import UPDATE_PRODUCT from "../graphql/mutations/updateProduct";
 
 
-
 export default function ProductEdit(){
 
     const updateAuth = useUpdateAuth();
@@ -30,6 +29,31 @@ export default function ProductEdit(){
             productId: parseInt(productId)
         }
     });
+
+    const [updateProduct] = useMutation(UPDATE_PRODUCT);
+
+    async function handleEditProduct(product){
+        try{
+            await updateProduct({
+                variables: {
+                    productId: parseInt(productId),
+                    title: product.title,
+                    description: product.description,
+                    price: product.price,
+                    rent: product.rent,
+                    rentPaymentPeriod: product.rentPaymentPeriod,
+                    categories: product.categories
+                },
+                update(cache, data){
+                    updateCacheAfterProductUpdate(cache,auth.id, product.productId, data);
+                }
+            });
+            navigateTo(`/product/view/${productId}`);
+        }catch(e){
+            console.log(e);
+        }
+    }
+
     if(loading){
         return (
             <div className="text-center mt-5">
@@ -37,28 +61,15 @@ export default function ProductEdit(){
             </div>
         )
     }
+
     if(data){
 
-        const [updateProduct] = useMutation(UPDATE_PRODUCT);
 
-        async function handleEditProduct(product){
-            try{
-                const resp = await updateProduct({
-                    variables: product,
-                    update(cache, data){
-                        updateCacheAfterProductUpdate(cache,auth.id, product.productId, data);
-                    }
-                });
-                navigateTo(`/product/view/${product.productId}`);
-            }catch(e){
-                console.log(e);
-            }
-        }
 
         return (
             <div>
                 <h1 className="text-center text-4xl my-10 font-bold">Edit Product</h1>
-                <ProductForm product={data.singleProduct} submit={handleEditProduct} />
+                <ProductForm type= "edit" product={data.singleProduct} submit={handleEditProduct} />
             </div>
         )
     }

@@ -19,7 +19,7 @@ const allProducts = {
         const user = await Db.models.user.findByPk(args.userId);
         return user.getProducts({
             order: [
-                ['id', 'ASC']
+                ['id', 'DESC']
             ]
         });
     }

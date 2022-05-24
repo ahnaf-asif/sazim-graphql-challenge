@@ -30,7 +30,6 @@ export default function ProductForm(props){
         setValues({ ...values, [prop]: event.target.value });
     };
 
-
     const {error, loading, data} = useQuery(ALL_CATEGORIES);
 
     const [selectedCategories, setSelectedCategories] = React.useState(props.product.categories.map(cat => cat.id));
@@ -47,7 +46,6 @@ export default function ProductForm(props){
     function handleFormSubmit(e){
         e.preventDefault();
         const updatedProduct = {
-            productId: props.product.id,
             title: values.title,
             description: values.description,
             price: values.price,
@@ -80,6 +78,7 @@ export default function ProductForm(props){
                             id="demo-multiple-chip"
                             multiple
                             value={selectedCategories}
+                            required
                             onChange={handleCategoryChange}
                             input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                             renderValue={(selected) => (
@@ -105,6 +104,7 @@ export default function ProductForm(props){
 
                     <label htmlFor="textarea text-lg">Description</label>
                     <textarea
+                        required
                         style={{minHeight: '200px'}}
                         className=" py-2 px-2 my-2 border w-full"
                         value={values.description}
@@ -122,6 +122,7 @@ export default function ProductForm(props){
                                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
                                 label="Price"
                                 type="number"
+                                required
                             />
                         </FormControl>
                         <FormControl className="three-pair-input">
@@ -133,6 +134,7 @@ export default function ProductForm(props){
                                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
                                 label="Rent"
                                 type="number"
+                                required
                             />
                         </FormControl>
                         <TextField
@@ -142,6 +144,7 @@ export default function ProductForm(props){
                             label="Rent Payment Period"
                             value={values.rentPaymentPeriod}
                             onChange={handleChange('rentPaymentPeriod')}
+                            required
                         >
                             {rentPaymentPeriodOptions.map((option) => (
                                 <MenuItem key={option} value={option}>
@@ -151,7 +154,7 @@ export default function ProductForm(props){
                         </TextField>
                     </div>
                     <div className="text-center mt-10">
-                        <Button variant="contained" color="success" type="submit">Edit Product</Button>
+                        <Button variant="contained" color="success" type="submit">{props.type} Product</Button>
                     </div>
                 </form>
             </div>

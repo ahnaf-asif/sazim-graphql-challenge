@@ -8,7 +8,7 @@ const allProducts = {
         return Db.models.product.findAll({
             where: args,
             order: [
-                ['id', 'ASC']
+                ['id', 'DESC']
             ]
         });
     }

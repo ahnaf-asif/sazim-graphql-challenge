@@ -18,9 +18,8 @@ export default function ProductPreview(props){
                     <ProductEditDeleteSection userId={auth.id} productId={props.id} />
                 }
                 <Link className="style-less-link" to={`/product/view/${props.id}`}>
-                    <div className="product-preview py-3 px-5 border border-slate-300 my-5" >
-
-                        <div className="title">
+                    <div className="product-preview py-3 px-5 border border-slate-300 my-5 mt-5" >
+                        <div className="title mt-5">
                             <h1 className="text-2xl font-bold">{props.title}</h1>
                             <h5 className="text-xs text-gray-400 font-bold">Categories: {printCategories(props.categories)}</h5>
                             <h5 className="text-xs text-gray-400 font-bold">Price: ${props.price}</h5>

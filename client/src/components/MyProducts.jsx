@@ -22,10 +22,13 @@ export default function MyProducts(props){
     if(data){
         return (
             <div>
-                <h1 className="text-center mt-10 mb-5 text-5xl font-bold">My Products</h1>
-                <Button to="/product/create" variant="contained" color="primary" component={Link}>Create Product</Button>
+                <h1 className="text-center mt-10 mb-10 text-5xl font-bold">My Products</h1>
+
                 <div className="flex justify-center">
                     <div className="products all-products">
+                        <div className="mt-10">
+                            <Button to="/product/create" variant="contained" color="primary" component={Link}>Create Product</Button>
+                        </div>
                         {data.userProducts.map(product => {
                             return (
                                 <ProductPreview

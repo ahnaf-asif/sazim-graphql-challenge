@@ -5,13 +5,13 @@ import * as React from "react";
 
 export default function ProductEditDeleteSection(props){
     return (
-        <div className="edit-delete-section mt-5">
+        <div className="edit-delete-section mt">
             <div className="edit-product-icon">
                 <Link to={`/product/edit/${props.productId}`}>
                     <Edit />
                 </Link>
             </div>
-            <div className="delete-product-icon">
+            <div className ="delete-product-icon">
                 <DeleteProduct userId={props.userId} productId = {props.productId}  />
             </div>
         </div>
