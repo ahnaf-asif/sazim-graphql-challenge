@@ -31,11 +31,7 @@ Category.belongsToMany(Product, {through: 'CategoryProduct'});
 
 // await DB_CONNECTION.sync({ force: true });
 
-try {
-    await DB_CONNECTION.authenticate();
-    console.log('Connection has been established successfully.');
-} catch (error) {
-    console.error('Unable to connect to the database:', error);
-}
+DB_CONNECTION.sync();
+
 
 export default DB_CONNECTION
