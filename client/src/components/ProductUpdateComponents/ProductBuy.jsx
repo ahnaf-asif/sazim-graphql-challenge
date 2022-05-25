@@ -3,8 +3,10 @@ import {Button, Dialog} from "@mui/material";
 
 import '../../css/product.css';
 import {useMutation} from "@apollo/client";
-import BUY_PRODUCT from "../../graphql/mutations/buyProduct";
+import BUY_PRODUCT from "../../graphql/mutations/buyProduct"; // this mutation handles product purchase
 import {useNavigate} from "react-router-dom";
+
+// this function updates cache after purchasing a product
 import updateCacheAfterUpdateProduct from "../../graphql/cacheHandlers/updateCacheAfterUpdateProduct";
 
 export default function ProductBuy(props){
@@ -26,11 +28,13 @@ export default function ProductBuy(props){
                     userId: parseInt(props.userId),
                 },
                 update(cache, {data}){
+                    // updating a cache after buying a product
                     updateCacheAfterUpdateProduct(cache, data.buyProduct);
                 }
             });
-            navigateTo(`/sack`);
+            navigateTo(`/sack`); // returning to user sack
         }catch(e){
+            // printing errors
             console.log(e);
         }
     }

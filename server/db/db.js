@@ -31,7 +31,7 @@ Category.belongsToMany(Product, {through: 'CategoryProduct'});
 
 // await DB_CONNECTION.sync({ force: true });
 
-DB_CONNECTION.sync();
+DB_CONNECTION.sync(); // syncs the database for the first time.
 
 
 export default DB_CONNECTION

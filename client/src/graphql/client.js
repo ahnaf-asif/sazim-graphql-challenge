@@ -1,3 +1,5 @@
+// initializing the apollo client
+
 import {
     ApolloClient, InMemoryCache, HttpLink, from,
 } from "@apollo/client";

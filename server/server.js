@@ -3,11 +3,9 @@ import { graphqlHTTP } from 'express-graphql';
 import Schema from './graphql/schema.js';
 import cors from "cors";
 
-const APP_PORT = 4000;
+const APP_PORT = 4000; // feel free to edit/update the APP_PORT
 
 const app = Express();
-
-// localhsot:4000/graphql
 
 app.use(cors({
     origin: "*"

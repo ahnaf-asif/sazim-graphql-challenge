@@ -6,16 +6,16 @@ import ALL_PRODUCTS from '../graphql/queries/allProducts';
 import {useEffect} from "react";
 import {useUpdateAuth} from "../AuthContext";
 import {CircularProgress} from "@mui/material";
-import * as React from "react";
+import  React from "react";
 
 
 export default function Home(){
-    // console.log(apolloClient.cache.data);
-    const {error, loading, data} = useQuery(ALL_PRODUCTS);
+
+    const {loading, data} = useQuery(ALL_PRODUCTS);
 
     const updateAuth = useUpdateAuth();
     useEffect(()=>{
-        updateAuth();
+        updateAuth(); // updating auth on mount
     }, []);
 
     if(loading){
@@ -32,7 +32,7 @@ export default function Home(){
                 <div className="flex justify-center">
                     <div className="products all-products">
                         {data.allProducts.map(product => {
-                            // console.log(product);
+                            // rendering all products
                             return (
                                 <ProductPreview
                                     key={product.id}

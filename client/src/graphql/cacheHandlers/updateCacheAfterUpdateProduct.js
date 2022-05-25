@@ -1,5 +1,7 @@
 import ALL_PRODUCTS from "../queries/allProducts";
 
+// updates the existing product in cache after update in the server
+
 export default function updateCacheAfterUpdateProduct(cache, data){
     const {allProducts} = cache.readQuery({
         query: ALL_PRODUCTS

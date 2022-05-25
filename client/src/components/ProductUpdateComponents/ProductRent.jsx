@@ -1,16 +1,17 @@
-import * as React from "react";
+import React from "react";
 import {Alert, Button, Dialog, DialogContent} from "@mui/material";
 
 import '../../css/product.css';
 import {useMutation} from "@apollo/client";
 import {useNavigate} from "react-router-dom";
 import {checkIfTimePeriodAvailable} from "../../helper";
-import RENT_PRODUCT from "../../graphql/mutations/rentProduct";
+import RENT_PRODUCT from "../../graphql/mutations/rentProduct"; // product rent mutation
 import updateCacheAfterUpdateProduct from "../../graphql/cacheHandlers/updateCacheAfterUpdateProduct";
 
 export default function ProductRent(props){
 
     const [open, setOpen] = React.useState(false);
+    // [from....to] will be used as a segment when the user will borrow the product
     const [formData, setFormData] = React.useState({
         from: '',
         to: ''
@@ -38,6 +39,9 @@ export default function ProductRent(props){
         // console.log(, );
         const from = new Date(formData.from).getTime();
         const to = new Date(formData.to).getTime();
+
+        // checks if the input from-to time segment overlaps with other rent queries
+        // see helper.js file in the root directory
         if(!checkIfTimePeriodAvailable(from, to, props.product.rentHistories)){
             setErr(true);
             setErrText('Product will not be available at that time. please select another time');
@@ -57,6 +61,7 @@ export default function ProductRent(props){
                         userId: parseInt(props.userId),
                     },
                     update(cache, {data}){
+                        // updating cache after renting the product
                         updateCacheAfterUpdateProduct(cache, data.rentProduct);
                     }
                 });

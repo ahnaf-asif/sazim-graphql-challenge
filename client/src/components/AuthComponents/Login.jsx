@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React from 'react';
 import '../../css/login-register.css';
-
 import{
     Link
 }from 'react-router-dom';
@@ -11,27 +10,34 @@ import {
     FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput,
     TextField
 } from "@mui/material";
+
 import {
     Visibility,
     VisibilityOff
 } from "@mui/icons-material";
 
-// import { readQuery } from "@apollo/client";
-import LOGIN_USER from "../../graphql/mutations/loginUser";
+
+
 import {useMutation} from "@apollo/client";
-import {useUpdateAuth} from "../../AuthContext";
+import LOGIN_USER from "../../graphql/mutations/loginUser"; // mutation for user login
 
-import { useNavigate } from 'react-router-dom';
+import {useUpdateAuth} from "../../AuthContext"; // Auth Context
+import { useNavigate } from 'react-router-dom'; // for routing
 
-export default function Login(props){
+export default function Login(){
 
+    // setting initial form data
     const [formData, setFormData] = React.useState({
         email: '',
         password: '',
         showPassword: false,
     });
+
+    // error handlers
     const [isEmailPassError, setIsEmailPassError] = React.useState(false);
     const [showLoadingIcon, setShowLoadingIcon] = React.useState(false);
+
+    // handles form value changes
     const handleChange = (prop) => (event) => {
         setFormData({ ...formData, [prop]: event.target.value });
     };
@@ -45,18 +51,21 @@ export default function Login(props){
         event.preventDefault();
     };
 
+    // login user mutation
     const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER);
 
-    const updateAuth = useUpdateAuth();
+    const updateAuth = useUpdateAuth(); // updating value in AuthContext
     let navigateTo = useNavigate();
 
     async function handleLogin(e){
 
         e.preventDefault();
         setIsEmailPassError(false);
-        setShowLoadingIcon(true);
+        setShowLoadingIcon(true); // used for showing loading screen
 
-        localStorage.removeItem('auth');
+        localStorage.removeItem('auth'); // removing existing login data
+
+        // authenticating via LOGIN_USER mutation
         const auth = await loginUser({
             variables: {
                 email: formData.email,
@@ -64,13 +73,14 @@ export default function Login(props){
             }
         });
         if(auth.data.loginUser){
+            // logged in. setting the auth data in localStorage
             localStorage.setItem('auth', JSON.stringify(auth.data.loginUser));
-            updateAuth();
-            navigateTo('/');
+            updateAuth(); // updating auth context value
+            navigateTo('/'); // redirecting to home page
         }else{
+            // handling errors
             setShowLoadingIcon(false);
             setIsEmailPassError(true);
-            // console.log(auth);
         }
 
     }

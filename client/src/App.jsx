@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Routes, Route} from "react-router-dom";
 
 import {
@@ -26,7 +26,6 @@ function App() {
             <div className="App">
                 <Nav />
                 <Container className="mb-10">
-                    {/*<button onClick={changeAuthStatus}>Change Auth Status</button>*/}
                     <Routes>
                         <Route path="/" element={<Home />} />
 

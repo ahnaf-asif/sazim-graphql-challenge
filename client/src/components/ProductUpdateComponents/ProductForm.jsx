@@ -1,4 +1,5 @@
-import * as React from "react";
+// this component shows a form data and then returns the data which can be used in multiple occasions
+import React from "react";
 import {
     Box, Button,
     Chip,
@@ -10,14 +11,17 @@ import {
     Select,
     TextField
 } from "@mui/material";
+
 import {useQuery} from "@apollo/client";
 import ALL_CATEGORIES from "../../graphql/queries/allCategories";
 
+// default rentPaymentPeriod options
 const rentPaymentPeriodOptions = [
     'hourly', 'daily', 'monthly', 'yearly'
 ];
 
 export default function ProductForm(props){
+    // initialize data from the props
     const [values, setValues] = React.useState({
         title: props.product.title,
         description: props.product.description,
@@ -29,8 +33,9 @@ export default function ProductForm(props){
         setValues({ ...values, [prop]: event.target.value });
     };
 
-    const {error, loading, data} = useQuery(ALL_CATEGORIES);
+    const {error, loading, data} = useQuery(ALL_CATEGORIES); // getting all categories from the server
 
+    // setting the categories to render on a multiselect input
     const [selectedCategories, setSelectedCategories] = React.useState(props.product.categories.map(cat => cat.id));
 
     const handleCategoryChange = (event) => {
@@ -44,6 +49,9 @@ export default function ProductForm(props){
 
     function handleFormSubmit(e){
         e.preventDefault();
+
+        // just returns the input data to the parent
+
         const updatedProduct = {
             title: values.title,
             description: values.description,
@@ -53,6 +61,7 @@ export default function ProductForm(props){
             categories: selectedCategories
         }
         props.submit(updatedProduct);
+
     }
 
     if(data) {

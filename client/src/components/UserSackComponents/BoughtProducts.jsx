@@ -1,5 +1,7 @@
+// this component renders all the product user bought
+
 import {useQuery} from "@apollo/client";
-import * as React from "react";
+import React from "react";
 import ProductPreview from "../ProductUpdateComponents/ProductPreview";
 import {CircularProgress} from "@mui/material";
 import ALL_PRODUCTS from "../../graphql/queries/allProducts";
@@ -22,6 +24,8 @@ export default function BoughtProducts(props){
                 <div className="flex justify-center">
                     <div className="products all-products">
                         {data.allProducts.map(product => {
+
+                            // checking if the user bought this product
                             if(checkIfUserBoughtThisProduct(product)){
                                 return (
                                     <ProductPreview

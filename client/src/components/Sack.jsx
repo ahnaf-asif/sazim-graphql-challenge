@@ -1,3 +1,7 @@
+//This component shows users whole history
+// user's products, rent products, borrowed products, lent products everything.
+
+
 import {useUpdateAuth, useGetAuth} from "../AuthContext";
 import React,{useEffect} from "react";
 import {useNavigate} from "react-router-dom";

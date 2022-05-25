@@ -1,21 +1,19 @@
-import React, {useEffect} from "react";
 import {useUpdateAuth, useGetAuth} from "../../AuthContext";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 
 
 export default function Logout(){
 
-    const updateAuth = useUpdateAuth();
-    const getAuth = useGetAuth();
-    let navigateTo = useNavigate();
+    const updateAuth = useUpdateAuth(); // for updating auth context value
+    const getAuth = useGetAuth(); // getting auth context value
+    let navigateTo = useNavigate(); // for redirect
 
     function logOut(){
-        // localStorage.setItem('auth', {id: null});
-        localStorage.removeItem('auth');
+
+        localStorage.removeItem('auth'); // removing auth content
         updateAuth(); // updating auth from the localStorage
-        // apolloClient.resetStore();
-        navigateTo('/');
+        navigateTo('/'); // redirecting
     }
     return (
         <Button onClick={logOut} color="inherit">Logout</Button>

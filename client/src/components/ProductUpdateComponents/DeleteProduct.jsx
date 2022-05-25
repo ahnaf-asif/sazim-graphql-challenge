@@ -4,8 +4,10 @@ import {Delete} from "@mui/icons-material";
 
 import '../../css/product.css';
 import {useMutation} from "@apollo/client";
-import DELETE_PRODUCT from "../../graphql/mutations/deleteProduct";
+import DELETE_PRODUCT from "../../graphql/mutations/deleteProduct"; // mutation for deleting a product
 import {useNavigate} from "react-router-dom";
+
+// this function updates cache after deleting a product
 import updateCacheAfterDeleteProduct from "../../graphql/cacheHandlers/updateCacheAfterDeleteProduct";
 
 
@@ -18,11 +20,12 @@ export default function DeleteProduct(props){
     const handleClose = () => {
         setOpen(false);
     };
-
+    // delete product mutation
     const [deleteProduct, { data, loading, error }] = useMutation(DELETE_PRODUCT);
 
     let navigateTo = useNavigate();
 
+    // tthis function deletes the product
     async function handleDeleteProduct() {
         try{
             const resp = await deleteProduct({
@@ -30,11 +33,13 @@ export default function DeleteProduct(props){
                     productId: parseInt(props.productId)
                 },
                 update(cache){
+                    // updating cache after deleting the product
                     updateCacheAfterDeleteProduct(cache, props.productId);
                 }
             });
-            navigateTo('/sack');
+            navigateTo('/sack'); // redirecting to user sack
         }catch(e){
+            // consoling errors
             console.log(e);
         }
     }

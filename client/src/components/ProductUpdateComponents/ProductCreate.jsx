@@ -28,7 +28,7 @@ export default function ProuctCreate(){
         }
     }, []);
 
-    const [addProduct] = useMutation(ADD_PRODUCT);
+    const [addProduct] = useMutation(ADD_PRODUCT); // this mutation takes a product and adds it into the server
 
     async function handleCreateProduct(product){
         try{
@@ -41,16 +41,16 @@ export default function ProuctCreate(){
                 rentPaymentPeriod: product.rentPaymentPeriod,
                 categories: product.categories
             };
-            // console.log(variables);
             const newProduct = await addProduct({
                 variables: variables,
                 update(cache, {data}){
+                    // updating the cache after adding a product
                     updateCacheAfterCreateProduct(cache, data.addProduct);
                 }
             });
-            // console.log(newProduct.data.addProduct);
-            navigateTo(`/product/view/${newProduct.data.addProduct.id}`);
+            navigateTo(`/product/view/${newProduct.data.addProduct.id}`); // redirecting to product view
         }catch(e){
+            // printing errors
             console.log(e);
         }
 
@@ -59,6 +59,8 @@ export default function ProuctCreate(){
     return (
         <div>
             <h1 className="text-center text-4xl my-10 font-bold">Create Product</h1>
+
+            {/*This component renders a form and returns form data ( which I used to add new products)*/}
             <ProductForm type="create" product={emptyProduct} submit={handleCreateProduct} />
         </div>
     )

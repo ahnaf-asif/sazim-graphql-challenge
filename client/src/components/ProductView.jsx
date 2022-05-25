@@ -79,6 +79,7 @@ export default function ProductView(){
                         <p className="text-right mt-10">Please <Link className="text-blue-700 font-bold" to="/Login">Login</Link> to rent/buy the product</p>
                     }
                     <div className="mt-10">
+                        {/* Showing the rent booking history */}
                         <h2 className="text-center text-2xl font-bold ">Rent Booking History</h2>
                         <hr className="mt-10"/>
                         <Table aria-label="simple table w-96">

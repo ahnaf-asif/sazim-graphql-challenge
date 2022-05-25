@@ -1,14 +1,16 @@
-import * as React from 'react';
+//This component previews the product objects
+
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import {checkIfProductAlreadySold, checkIfUserCreatedThisProduct, timestampToDateString, printCategories} from '../../helper';
 
-import {useGetAuth} from "../../AuthContext";
-import ProductEditDeleteSection from "./ProductEditDeleteSection";
+import {useGetAuth} from "../../AuthContext"; // used to get the authcontext
+import ProductEditDeleteSection from "./ProductEditDeleteSection"; // this section is fur edit and delete product
 
 export default function ProductPreview(props){
 
-    const auth = useGetAuth();
+    const auth = useGetAuth(); // geting the auth data from auth context
 
     return (
         <>
@@ -28,6 +30,7 @@ export default function ProductPreview(props){
                             <h5 className="text-xs text-gray-400 font-bold">Categories: {printCategories(props.product.categories)}</h5>
                             <h5 className="text-xs text-gray-400 font-bold">Price: ${props.product.price}</h5>
                             <p className="mt-5">
+                                {/* if data is too long, just shows the first 180 characters */}
                                 {props.product.description.length > 200
                                     ? <span> {props.product.description.slice(0,180)} <span className="text-blue-600"> ... see more</span> </span>
                                     : props.product.description

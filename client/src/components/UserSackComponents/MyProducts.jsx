@@ -1,6 +1,8 @@
+// this component renders all products user created
+
 import {useQuery} from "@apollo/client";
 import {Button, CircularProgress} from "@mui/material";
-import * as React from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import ProductPreview from "../ProductUpdateComponents/ProductPreview";
 import ALL_PRODUCTS from "../../graphql/queries/allProducts";
@@ -26,6 +28,9 @@ export default function MyProducts(props){
                             <Button to="/product/create" variant="contained" color="primary" component={Link}>Create Product</Button>
                         </div>
                         {data.allProducts.map(product => {
+
+                            // checking if the user created this product
+                            // see helper.js in the root directory
                             if(checkIfUserCreatedThisProduct(product)){
                                 return (
                                     <ProductPreview

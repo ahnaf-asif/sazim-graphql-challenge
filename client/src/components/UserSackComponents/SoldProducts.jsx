@@ -1,12 +1,12 @@
 import {useQuery} from "@apollo/client";
 import {CircularProgress} from "@mui/material";
-import * as React from "react";
+import React from "react";
 import ProductPreview from "../ProductUpdateComponents/ProductPreview";
 import ALL_PRODUCTS from "../../graphql/queries/allProducts";
 import {checkIfUserSoldThisProduct} from "../../helper";
 
-export default function SoldProducts(props){
-    const {error, loading, data} = useQuery(ALL_PRODUCTS);
+export default function SoldProducts(){
+    const {loading, data} = useQuery(ALL_PRODUCTS);
     if(loading){
         return (
             <div className="text-center mt-5">

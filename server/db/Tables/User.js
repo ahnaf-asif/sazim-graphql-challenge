@@ -1,6 +1,7 @@
 import Sequelize from "sequelize";
 import DB_CONNECTION from "../connection.js";
 
+// this is the user model
 const User = DB_CONNECTION.define('user', {
     firstName: {
         type: Sequelize.STRING,

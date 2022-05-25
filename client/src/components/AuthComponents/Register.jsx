@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import '../../css/login-register.css';
 
 import{
@@ -9,18 +9,24 @@ import {
     Alert,
     Button, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField
 } from "@mui/material";
+
 import {
     Visibility, VisibilityOff
 } from "@mui/icons-material";
 
+// mutation for user registration
 import REGISTER_USER from "../../graphql/mutations/registerUser";
 import {useMutation} from "@apollo/client";
+
+// for updating authContext value
 import {useUpdateAuth} from "../../AuthContext";
 
+// for redirect
 import { useNavigate } from 'react-router-dom';
 
 export default function Register(){
 
+    // register form data
     const [values, setValues] = React.useState({
         firstName: '',
         lastName: '',
@@ -32,9 +38,11 @@ export default function Register(){
         showPassword: false,
         showConfirmPassword: false,
     });
+
+    // handle errors
     const [formError, setFormError] = React.useState(false);
     const [formErrorText, setFormErrorText] = React.useState('');
-    const [showLoadingIcon, setShowLoadingIcon] = React.useState(false);
+    const [showLoadingIcon, setShowLoadingIcon] = React.useState(false); // used for showing loading screen
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -54,13 +62,14 @@ export default function Register(){
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-
+    // register mutation. takes form data and returns user after creating the user
     const [registerUser, { data, loading, error }] = useMutation(REGISTER_USER);
 
-    const updateAuth = useUpdateAuth();
-    let navigateTo = useNavigate();
+    const updateAuth = useUpdateAuth(); // used to update auth context
+    let navigateTo = useNavigate(); // used to redirect
 
     async function handleRegister(event){
+        // resetting errors
         setFormError(false);
         setFormErrorText('');
         setShowLoadingIcon(true);
@@ -68,6 +77,7 @@ export default function Register(){
         event.preventDefault();
 
         if(values.password !== values.confirmPassword){
+            // checking if password and confirmPassword matches
             setShowLoadingIcon(false);
             setFormError(true);
             setFormErrorText('Passwords must match');
@@ -83,12 +93,13 @@ export default function Register(){
                         phone: values.phone,
                     }
                 });
-                setShowLoadingIcon(false);
+                setShowLoadingIcon(false); // stopping loading screen
                 localStorage.removeItem('auth');
                 localStorage.setItem('auth', JSON.stringify(auth.data.registerUser));
-                updateAuth();
-                navigateTo('/');
+                updateAuth(); // updating auth context
+                navigateTo('/'); // redirecting to the home
             }catch(error){
+                // error handles
                 setShowLoadingIcon(false);
                 setFormError(true);
                 setFormErrorText(error.message);

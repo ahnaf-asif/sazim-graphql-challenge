@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize'
 
+// initializing the database connection
+
 const DB_CONNECTION = new Sequelize(
     'teebay', // table name
     'postgres', // user

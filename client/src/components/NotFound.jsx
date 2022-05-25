@@ -1,3 +1,4 @@
+// if user enters to any link that's not defined, it'll show the 404 not found page
 import {Link} from 'react-router-dom';
 
 export default function NotFound(){

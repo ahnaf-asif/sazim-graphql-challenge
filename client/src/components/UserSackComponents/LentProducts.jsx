@@ -1,6 +1,8 @@
+// this component renders all the products user lent
+
 import {useQuery} from "@apollo/client";
 import {CircularProgress} from "@mui/material";
-import * as React from "react";
+import React from "react";
 import ProductPreview from "../ProductUpdateComponents/ProductPreview";
 import ALL_PRODUCTS from "../../graphql/queries/allProducts";
 import {checkIfUserLentThisProduct} from "../../helper";
@@ -22,6 +24,8 @@ export default function LentProducts(props){
                 <div className="flex justify-center">
                     <div className="products all-products">
                         {data.allProducts.map(product => {
+
+                            // checking if the user lent this product
                             if(checkIfUserLentThisProduct(product)) {
                                 return (
                                     <ProductPreview
