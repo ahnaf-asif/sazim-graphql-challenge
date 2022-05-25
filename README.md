@@ -1,5 +1,7 @@
 # Sazim Graphql Challenge
 
+**To see the full documentation, visit [Part4_Documentation.md]()**
+
 ### Introduction
 This is a simple CRUD application where users can register, login and create products. Users can edit/update/delete their products or buy/rent other products. 
 
