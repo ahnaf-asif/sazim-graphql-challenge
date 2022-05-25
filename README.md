@@ -1,13 +1,13 @@
 # Sazim Graphql Challenge
 
-**To see the full documentation, visit [Part4_Documentation.md]()**
+**To see the full documentation, visit [Part4_Documentation.md](https://github.com/ahnaf-asif/sazim-graphql-challenge/blob/main/part4_Documentation.md)**
 
 ### Introduction
 This is a simple CRUD application where users can register, login and create products. Users can edit/update/delete their products or buy/rent other products. 
 
 I have used React and apollo graphql client for the frontend and nodejs, graphql for the backend. Postgres database is used, but the code will run in any sql databases. I have used [sequelize](https://sequelize.org/) for modeling the database because it makes working with relational data way easier.
 
-### Installation
+### Installation Guide
 After forking/downloading the code, you'll notice there are two different folders in the root folder. server and client. All my server data is in the server folder and client codes are in the client folder.
 
 #### Server 
@@ -25,9 +25,27 @@ After forking/downloading the code, you'll notice there are two different folder
         }
     )
     ```
-* Open your terminal and go to the root server folder and run npm install. 
+* Open your terminal and go to the root server folder and run `npm install`. 
 * Then to run the server, just run `npm run dev`
 * You will be able to see the graphiql tool in `localhost:<port>/graphiql`
+* go to `localhost:<port>/graphiql` and run the following mutation to initially store some categories in the database.
+```javascript
+  mutation{
+  addCategories(
+    categories:[
+      "nics",
+      "Furniture",
+      "Home AppliElectroances",
+      "Sporting Goods",
+      "Outdoor",
+      "Toys"
+    ]
+  ){
+    id
+    name
+  }
+}
+```
 
 #### Client
 * open the `client/src/graphql` folder and open the `client.js` file
